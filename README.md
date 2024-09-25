@@ -1,8 +1,8 @@
-# Gencore-modules
-This is the documentation for gencore module build on a HPC system. 
+## Gencore Modules v3
+This is the documentation for gencore module v3  build system on a HPC system. 
 This solution works not only with the HPC, even cloud, virtual machines, containers etc. 
 
-Prerequisites for running this script 
+### Prerequisites for running this script 
 - Easybuild==4.9.2
 - tcl==8.6.14
 - Modules==5.4.0
@@ -11,8 +11,8 @@ Prerequisites for running this script
 
 
 
-Easybuild install Instructions
-==============================
+### Easybuild install Instructions
+
 
 ```
 export EB_TMPDIR=eb_tmp_dir
@@ -34,8 +34,8 @@ To install Easybuild as a module
 eb --install-latest-eb-release --prefix <path-to-install>
 ```
 
-Excecute build script
-=====================
+### Excecute build script
+
 
 ```
 pip3 install -r pip-requirements.txt
@@ -53,24 +53,24 @@ As of now it consist of different methods to install a package and convert it as
 5. Create a bundle which is a mix of packages already added in easybuild.
 ```
 
-Key Benefits
-============
+### Key Benefits
+
 
 1. Loaded with mamba for conda based installation and this helps the dependency resolving smootly and reduced the excecution time compared to native conda method. 
 2. Ability to supply/pass new conda channels.
 3. Supports local and remote tarball based installations. 
 4. Module bundle based integration to club multiple modules.  
 
-Future Enhancement requests
-===========================
+### Future Enhancement requests
+
 
 1. Create easyconfig for a manually installed package.
 2. Create easyconfig from a ConfigureCmake compiled package.
 
 
 
-Known Issues
-============
+### Known Issues
+
 
 Issues with integrating this setup on HPC system 
 
