@@ -11,21 +11,26 @@ Prerequisites for running this script
 
 
 
-To install Easy
-export LD_LIBRARY_PATH=/scratch/jr5241/Gencoremodules_v3/easybuild/tcl_local/lib:$LD_LIBRARY_PATH
-#module 5.4.0
-export PATH=/scratch/jr5241/Gencoremodules_v3/easybuild/env_modules/bin:$PATH
-source /scratch/jr5241/Gencoremodules_v3/easybuild/env_modules/init/bash
+To install Easybuild refer below steps:- 
 
-#Below 4 steps needs during the inital setup of easybuild, now we have install eb inside eb
-#export EB_TMPDIR=/scratch/jr5241/Gencoremodules_v3/easybuild/eb_tmp_dir
-#python3 -m pip install --ignore-installed --prefix $EB_TMPDIR easybuild
-#export PATH=$EB_TMPDIR/bin:$PATH
-#export PYTHONPATH=$(/bin/ls -rtd -1 $EB_TMPDIR/lib*/python*/site-packages | tail -1):$PYTHONPATH
-#export EB_PYTHON=python3
-export EASYBUILD_PREFIX=/scratch/jr5241/Gencoremodules_v3/easybuild/.eb/3.0
-export EASYBUILD_CONFIGFILES=/scratch/jr5241/Gencoremodules_v3/easybuild/.eb/3.0/config.cfg
+```
+export EB_TMPDIR=eb_tmp_dir
+python3 -m pip install --ignore-installed --prefix $EB_TMPDIR easybuild
+export PATH=$EB_TMPDIR/bin:$PATH
+export PYTHONPATH=$(/bin/ls -rtd -1 $EB_TMPDIR/lib*/python*/site-packages | tail -1):$PYTHONPATH
+export EB_PYTHON=python3
+```
 
-unset MODULEPATH
-export MODULEPATH=/scratch/jr5241/Gencoremodules_v3/easybuild/.eb/3.0/modules/all
- module load EasyBuild/4.9.2
+Create easybuild config under the install-dir ```config```
+```
+[config]
+module-syntax = Tcl
+modules-tool = EnvironmentModules
+```
+
+To install Easybuild as a module 
+```
+eb --install-latest-eb-release --prefix <path-to-install>
+```
+
+To excecute the 
