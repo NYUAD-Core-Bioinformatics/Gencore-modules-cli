@@ -11,7 +11,8 @@ Prerequisites for running this script
 
 
 
-To install Easybuild refer below steps:- 
+Easybuild install Instructions
+==============================
 
 ```
 export EB_TMPDIR=eb_tmp_dir
@@ -21,7 +22,7 @@ export PYTHONPATH=$(/bin/ls -rtd -1 $EB_TMPDIR/lib*/python*/site-packages | tail
 export EB_PYTHON=python3
 ```
 
-Create easybuild config under the install-dir ```config```
+Create easybuild ```config``` under the install-dir.
 ```
 [config]
 module-syntax = Tcl
@@ -33,4 +34,60 @@ To install Easybuild as a module
 eb --install-latest-eb-release --prefix <path-to-install>
 ```
 
-To excecute the 
+Excecute build script
+=====================
+
+```
+pip3 install -r pip-requirements.txt
+cd /scratch/gencore/Gencoremodules_v3/
+python eb_modules_v3.py
+```
+
+As of now it consist of different methods to install a package and convert it as a module in HPC.
+
+```
+1. Create easyconfig from anaconda with specific custom conda channels (default channels :-  bioconda, conda-forge ).
+2. Local yml conda ( yml file needs to be specified locally using a full path )
+3. Create easyconfig from a local tarball.
+4. Create easyconfig from a remote tarball.
+5. Create a bundle which is a mix of packages already added in easybuild.
+```
+
+Key Benefits
+============
+
+1. Loaded with mamba for conda based installation and this helps the dependency resolving smootly and reduced the excecution time compared to native conda method. 
+2. Ability to supply/pass new conda channels.
+3. Supports local and remote tarball based installations. 
+4. Module bundle based integration to club multiple modules.  
+
+Future Enhancement requests
+===========================
+
+1. Create easyconfig for a manually installed package.
+2. Create easyconfig from a ConfigureCmake compiled package.
+
+
+
+Known Issues
+============
+
+Issues with integrating this setup on HPC system 
+
+1. Module build dependency doesn't recognize due to incorrect regex patter matching. 
+To fix, added "re.search" and commented the other line containing re.match in the modules.py script.
+```
+                 res = bool(re.search(mod_exists_regex, line))
+                #res = bool(re.match(mod_exists_regex, line))
+```
+
+2. Special characters in the module show output causing already installed module cannot receognize.
+To fix, add a new regex pattern as below in the modules.py script. 
+```
+   	        (stdout, stderr) = proc.communicate()
+   	        ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
+   
+   	        stdout = ansi_escape.sub('', stdout)
+   	        stderr = ansi_escape.sub('', stderr)
+   	        self.log.debug("Output of module command '%s': stdout: %s; stderr: %s" % (full_cmd, stdout, stderr))
+```
