@@ -7,7 +7,9 @@ This solution works not only with the HPC, even cloud, virtual machines, contain
 - tcl==8.6.14
 - Modules==5.4.0
 - gcc
-- python=3.11
+- python>=3.8
+- anaconda-client
+- urllib3==1.26.5
 
 
 
@@ -36,9 +38,7 @@ eb --install-latest-eb-release --prefix <path-to-install>
 
 ### Excecute build script
 
-
 ```
-pip3 install -r pip-requirements.txt
 cd /scratch/gencore/Gencoremodules_v3/
 python eb_modules_v3.py
 ```
