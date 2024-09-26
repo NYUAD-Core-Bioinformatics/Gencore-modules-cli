@@ -183,7 +183,7 @@ sources = ['{package_name}']
 extract_sources = True
 
 install_cmd = "mkdir %(installdir)s/bin/ &&"
-install_cmd += "cp -a %(builddir)s/* %(installdir)s/bin/ && "
+install_cmd += 'tar xfz *.tar.gz --directory %(installdir)s/bin/ --strip-components=1 && '
 install_cmd += "touch %(installdir)s/bin/testfile"
 
 sanity_check_paths = {{
@@ -250,7 +250,7 @@ sources = ['{sources}']
 extract_sources = True
 
 install_cmd = "mkdir %(installdir)s/bin/ &&"
-install_cmd += "cp -a %(builddir)s/* %(installdir)s/bin/ && "
+install_cmd += 'tar xfz *.tar.gz --directory %(installdir)s/bin/ --strip-components=1 && '
 install_cmd += "touch %(installdir)s/bin/testfile"
 
 sanity_check_paths = {{
