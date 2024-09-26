@@ -162,7 +162,7 @@ moduleclass = 'tools'
         version=input("Enter the version number of the package:- ")
         homepage=input("Enter the URL of the package:- ")
         description=input("Enter short description about package:- ")
-        package_name=input(f"Enter the downloaded tar or zip filename (File should present in {eb_config_folder} directory:- ")
+        package_name=input(f"Enter the downloaded tar or zip filename (File should present in {eb_config_folder} directory):- ")
 
         eb_binary_local = f'''##
 # This is an easyconfig file for binary based remote installation.
