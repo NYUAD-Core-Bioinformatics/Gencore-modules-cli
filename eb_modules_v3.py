@@ -180,7 +180,7 @@ toolchain = SYSTEM
 
 sources = ['{package_name}']
 
-extract_sources = True
+no_extract_cmd = True
 
 install_cmd = "mkdir %(installdir)s/bin/ &&"
 install_cmd += 'tar xfz *.tar.gz --directory %(installdir)s/bin/ --strip-components=1 && '
@@ -247,7 +247,7 @@ toolchain = SYSTEM
 source_urls = ['{source_urls}']
 sources = ['{sources}']
 
-extract_sources = True
+no_extract_cmd = True
 
 install_cmd = "mkdir %(installdir)s/bin/ &&"
 install_cmd += 'tar xfz *.tar.gz --directory %(installdir)s/bin/ --strip-components=1 && '
