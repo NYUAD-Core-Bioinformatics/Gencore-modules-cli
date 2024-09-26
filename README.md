@@ -40,6 +40,7 @@ eb --install-latest-eb-release --prefix <path-to-install>
 
 ```
 cd /scratch/gencore/Gencoremodules_v3/
+source source_vars.sh
 python eb_modules_v3.py
 ```
 
