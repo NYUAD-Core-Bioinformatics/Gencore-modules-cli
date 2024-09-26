@@ -47,7 +47,7 @@ python eb_modules_v3.py
 As of now it consist of different methods to install a package and convert it as a module in HPC.
 
 ```
-1. Create easyconfig from anaconda with specific custom conda channels (default channels :-  bioconda, conda-forge ).
+1. Create easyconfig from https://anaconda.org with specific custom conda channels (default channels :-  bioconda, conda-forge ).
 2. Local yml conda ( yml file needs to be specified locally using a full path )
 3. Create easyconfig from a local tarball.
 4. Create easyconfig from a remote tarball.
