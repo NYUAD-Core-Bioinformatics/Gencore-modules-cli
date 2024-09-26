@@ -8,7 +8,7 @@ while True:
     print("Welcome to Jubail HPC Easybuild")
     print("================")
     print("\n")
-    print("1. Create easyconfig from anaconda with specific custom conda channels (default channels :-  bioconda, conda-forge ).")
+    print("1. Create easyconfig from https://anaconda.org with specific custom conda channels (default channels :-  bioconda, conda-forge ).")
     print("2. Local yml conda ( yml file needs to be specified locally using a full path )")
     print("3. Create easyconfig from a local tarball.")
     print("4. Create easyconfig from a remote tarball.")
@@ -90,12 +90,13 @@ moduleclass = 'tools'
             print("+++++++++++++++++++++++++++")
             print("Build executed successfully")
             print("To load module issue below command on a new session")
+            print("===========================")
             print("module load all gencore/3")
             print("module load", name + "/" + version_to_use)
             print("+++++++++++++++++++++++++++")
         else:
             print("+++++++++++++++++++++++++++")
-            print(f"Build failed with return code {eb_command_out.returncode}")
+            print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
             print("+++++++++++++++++++++++++++")
         break
 
@@ -143,12 +144,13 @@ moduleclass = 'tools'
             print("+++++++++++++++++++++++++++")
             print("Build executed successfully")
             print("To load module issue below command on a new session")
+            print("===========================")
             print("module load all gencore/3")
             print("module load", name + "/" + version)
             print("+++++++++++++++++++++++++++")
         else:
             print("+++++++++++++++++++++++++++")
-            print(f"Build failed with return code {eb_command_out.returncode}")
+            print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
             print("+++++++++++++++++++++++++++")
         break
 
@@ -206,12 +208,13 @@ moduleclass = 'tools'
             print("+++++++++++++++++++++++++++")
             print("Build executed successfully")
             print("To load module issue below command on a new session")
+            print("===========================")
             print("module load all gencore/3")
             print("module load", name + "/" + version)
             print("+++++++++++++++++++++++++++")
         else:
             print("+++++++++++++++++++++++++++")
-            print(f"Build failed with return code {eb_command_out.returncode}")
+            print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
             print("+++++++++++++++++++++++++++")
         break
         
@@ -276,12 +279,13 @@ moduleclass = 'tools'
             print("+++++++++++++++++++++++++++")
             print("Build executed successfully")
             print("To load module issue below command on a new session")
+            print("===========================")
             print("module load all gencore/3")
             print("module load", name + "/" + version)
             print("+++++++++++++++++++++++++++")
         else:
             print("+++++++++++++++++++++++++++")
-            print(f"Build failed with return code {eb_command_out.returncode}")
+            print(f"Build failed with return code {eb_command_out.returncode}, please contact admin")
             print("+++++++++++++++++++++++++++")
         break
 
@@ -336,12 +340,13 @@ moduleclass = 'devel'
             print("+++++++++++++++++++++++++++")
             print("Build executed successfully")
             print("To load module issue below command on a new session")
+            print("===========================")
             print("module load all gencore/3")
             print("module load", name + "/" + version)
             print("+++++++++++++++++++++++++++")
         else:
             print("+++++++++++++++++++++++++++")
-            print(f"Build failed with return code {eb_command_out.returncode}")
+            print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
             print("+++++++++++++++++++++++++++")
         break
 
