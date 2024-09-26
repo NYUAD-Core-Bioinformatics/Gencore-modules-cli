@@ -1,4 +1,3 @@
-#!/share/apps/NYUAD5/miniconda/3-4.11.0/envs/python3.11/bin/python
 from binstar_client.utils import get_server_api, parse_specs
 import os
 import subprocess
