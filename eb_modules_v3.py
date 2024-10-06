@@ -12,7 +12,7 @@ while True:
     print("3. Create easyconfig from a local tarball.")
     print("4. Create easyconfig from a remote tarball.")
     print("5. Create a bundle which is a mix of packages already added in easybuild.")
-    print("6. 'WORK IN PROGRESS' - Create easyconfig for a manually installed package.")
+    print("6. Create easyconfig for a manually installed package.")
     print("7. 'WORK IN PROGRESS' - Create easyconfig from a ConfigureCmake compiled package.")
     print("8. To exit this menu, press 8")
 
@@ -21,6 +21,8 @@ while True:
     except ValueError:
         print("The input is not an integer")
     print("============================")
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
 
     if(selection == 1):
         print("Now the module installation begins conda on a specified package available in https://anaconda.org/.")
@@ -99,6 +101,8 @@ moduleclass = 'tools'
             print("+++++++++++++++++++++++++++")
         break
 
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
     elif(selection == 2):
         print("Now the module installation begins conda on a local yml")
         print("+++++++++++++++++++++++++++")
@@ -153,7 +157,7 @@ moduleclass = 'tools'
             print("+++++++++++++++++++++++++++")
         break
 
-
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
     elif(selection == 3):
         print("Now the module installation begins on binary on downloaded local package..")
         print("+++++++++++++++++++++++++++")
@@ -216,8 +220,8 @@ moduleclass = 'tools'
             print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
             print("+++++++++++++++++++++++++++")
         break
-        
 
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
     elif(selection == 4):
         print("Now the module installation begins on binary on a remote package.")
         print("+++++++++++++++++++++++++++")
@@ -288,6 +292,7 @@ moduleclass = 'tools'
             print("+++++++++++++++++++++++++++")
         break
 
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     elif(selection == 5):
         print("Module installation begins on easyconfig via bundle which is a mix of packages already added.")
         print("+++++++++++++++++++++++++++")
@@ -349,17 +354,73 @@ moduleclass = 'devel'
             print("+++++++++++++++++++++++++++")
         break
 
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
     elif(selection == 6):
-        print("Selected choice is 7 - WORK IN PROGRESS -Manually build module config.")
+        print("Module installation begins on a manually installed package.")
         print("\n")
+        name=input("Enter the package name:- ")
+        version=input("Enter the version number of the package:- ")
+        url=input("Enter the URL of the package:- ")
+        description=input("Enter short description about package:- ")
+        root_path=input("Enter the root path of software installed:- ")
+        actual_path=input("Specify the path followed by comma in this format for eg:- $root/bin/linux,$root/sbin :- ")
+        directory=f"/scratch/jr5241/Gencoremodules_v3/easybuild/.eb/3.0/modules/all/{name}"
+        paths=actual_path.split(',')
+
+        eb_module=f'''#%Module
+proc ModulesHelp {{ }} {{
+    puts stderr {{
+
+Description
+===========
+{name}
+
+
+More information
+================
+- Homepage: {url}
+    }}
+}}
+
+
+module-whatis Description:  {description}
+module-whatis Homepage: {url}
+module-whatis URL: {url}
+
+set root {root_path}
+
+conflict {name}
+
+prepend-path	CMAKE_PREFIX_PATH		$root
+        '''
+        for path in paths:
+            eb_module+=f'prepend-path	PATH		{path}\n'
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        output=f"{version}"
+        file_path=os.path.join(directory, output)
+        with open(file_path, "w") as file:
+            file.write(eb_module)
+
+        print("+++++++++++++++++++++++++++")
+        print("Build executed successfully")
+        print("To load module issue below command on a new session")
+        print("===========================")
+        print("module load all gencore/3")
+        print("module load", name + "/" + version)
+        print("+++++++++++++++++++++++++++")
         break
 
-
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
     elif(selection == 7):
         print("Selected choice is 7 - WORK IN PROGRESS --Configuremake.")
         print("\n")
         break
 
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
     elif(selection == 8):
         print("============================")
         print("Thank you for choosing this Jubail HPC Easybuild package service")

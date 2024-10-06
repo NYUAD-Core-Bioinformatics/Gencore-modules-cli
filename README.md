@@ -52,6 +52,7 @@ As of now it consist of different methods to install a package and convert it as
 3. Create easyconfig from a local tarball.
 4. Create easyconfig from a remote tarball.
 5. Create a bundle which is a mix of packages already added in easybuild.
+6. Create easyconfig from a already installed.
 ```
 
 ### Key Benefits
@@ -65,8 +66,9 @@ As of now it consist of different methods to install a package and convert it as
 ### Future Enhancement requests
 
 
-1. Create easyconfig for a manually installed package.
-2. Create easyconfig from a ConfigureCmake compiled package.
+1. Create easyconfig from a ConfigureCmake compiled package.
+2. Build this solution over a web application, where users can able to request package build via graphical interface. 
+
 
 
 
