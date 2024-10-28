@@ -365,7 +365,7 @@ moduleclass = 'devel'
         description=input("Enter short description about package:- ")
         root_path=input("Enter the root path of software installed:- ")
         actual_path=input("Specify the path followed by comma in this format for eg:- $root/bin/linux,$root/sbin :- ")
-        directory=f"/scratch/jr5241/Gencoremodules_v3/easybuild/.eb/3.0/modules/all/{name}"
+        directory=f"/scratch/gencore/.eb/3.0/modules/all/{name}"
         paths=actual_path.split(',')
 
         eb_module=f'''#%Module
