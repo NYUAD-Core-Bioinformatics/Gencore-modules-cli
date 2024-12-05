@@ -1,6 +1,6 @@
 ## Gencore Modules v3
 This is the documentation for gencore module v3  build system on a HPC system. 
-This solution works not only with the HPC, even cloud, virtual machines, containers etc. 
+This solution works not only with the HPC, even cloud, virtual machines, containers etc..
 
 ### Prerequisites for running this script 
 - Easybuild==4.9.2
