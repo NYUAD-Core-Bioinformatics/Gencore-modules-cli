@@ -1,6 +1,22 @@
+#!/share/apps/NYUAD5/miniconda/3-4.11.0/envs/python3.11/bin/python
 from binstar_client.utils import get_server_api, parse_specs
 import os
 import subprocess
+
+def poll_to_modules_server():
+    try:
+        subprocess.run(
+            "cd /scratch/gencore/jr5241/scripts/gencore_package_list/ && sh filter.sh",
+            shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        )
+        subprocess.run(
+            'ssh -i /scratch/gencore/jr5241/scripts/gencore_package_list/keys/id_rsa -p 4410 '
+            'gencore-build@DCLAP-V1660-CGSB.abudhabi.nyu.edu "docker restart gencore-modules"',
+            shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        )
+        print("Post-build operations completed successfully.")
+    except subprocess.CalledProcessError:
+        print("Error during post-build operations.")
 
 while True:
     print("================")
@@ -13,8 +29,8 @@ while True:
     print("4. Create easyconfig from a remote tarball.")
     print("5. Create a bundle which is a mix of packages already added in easybuild.")
     print("6. Create easyconfig for a manually installed package.")
-    print("7. 'WORK IN PROGRESS' - Create easyconfig from a ConfigureCmake compiled package.")
-    print("8. To exit this menu, press 8")
+#    print("7. 'WORK IN PROGRESS' - Create easyconfig from a ConfigureCmake compiled package.")
+    print("7. To exit this menu, press 7")
 
     try:
         selection  = int(input("\nEnter the choice number: "))
@@ -44,7 +60,8 @@ while True:
 
         package_data = conda_api.package(specs.user, specs.package)
         latest_version = package_data['latest_version']
-        summary = package_data['summary']
+        summary = package_data['summary'].replace('"', '').replace("'", '') 
+        #summary = package_data['summary']
         url = package_data['url']
         homepage = f"https://anaconda.org/{specs.user}/{specs.package}"
 
@@ -63,7 +80,8 @@ name = "{name}"
 version = "{version_to_use}"
 
 homepage = '{homepage}'
-description = """{summary}"""
+description = '{summary}'
+
 
 toolchain = SYSTEM
 
@@ -95,6 +113,7 @@ moduleclass = 'tools'
             print("module load all gencore/3")
             print("module load", name + "/" + version_to_use)
             print("+++++++++++++++++++++++++++")
+            poll_to_modules_server()
         else:
             print("+++++++++++++++++++++++++++")
             print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
@@ -151,6 +170,7 @@ moduleclass = 'tools'
             print("module load all gencore/3")
             print("module load", name + "/" + version)
             print("+++++++++++++++++++++++++++")
+            poll_to_modules_server()
         else:
             print("+++++++++++++++++++++++++++")
             print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
@@ -184,9 +204,9 @@ toolchain = SYSTEM
 
 sources = ['{package_name}']
 
-no_extract_cmd = True
 
 install_cmd = "mkdir %(installdir)s/bin/ &&"
+#install_cmd += "mv * %(installdir)s/bin/ && "
 install_cmd += 'tar xfz *.tar.gz --directory %(installdir)s/bin/ --strip-components=1 && '
 install_cmd += "touch %(installdir)s/bin/testfile"
 
@@ -215,6 +235,7 @@ moduleclass = 'tools'
             print("module load all gencore/3")
             print("module load", name + "/" + version)
             print("+++++++++++++++++++++++++++")
+            poll_to_modules_server()
         else:
             print("+++++++++++++++++++++++++++")
             print(f"Build failed with return code {eb_command_out.returncode}, please contact admin.")
@@ -251,10 +272,11 @@ toolchain = SYSTEM
 source_urls = ['{source_urls}']
 sources = ['{sources}']
 
-no_extract_cmd = True
 
 install_cmd = "mkdir %(installdir)s/bin/ &&"
 install_cmd += 'tar xfz *.tar.gz --directory %(installdir)s/bin/ --strip-components=1 && '
+install_cmd += "mv * %(installdir)s/bin/ && "
+install_cmd += 'chmod a+x %(installdir)s/bin/* &&'
 install_cmd += "touch %(installdir)s/bin/testfile"
 
 sanity_check_paths = {{
@@ -270,9 +292,6 @@ moduleclass = 'tools'
 
         file_path=os.path.join(eb_config_folder, output)
 
-        if os.path.exists(file_path):
-            raise ValueError(f"Error: The file '{file_path}' already exists. Please choose a different version or remove the current file.")
-
         with open(file_path, "w") as file:
             file.write(eb_binary_remote)
         eb_command=f"eb -r {file_path}"
@@ -286,6 +305,7 @@ moduleclass = 'tools'
             print("module load all gencore/3")
             print("module load", name + "/" + version)
             print("+++++++++++++++++++++++++++")
+            poll_to_modules_server()
         else:
             print("+++++++++++++++++++++++++++")
             print(f"Build failed with return code {eb_command_out.returncode}, please contact admin")
@@ -415,19 +435,19 @@ prepend-path	CMAKE_PREFIX_PATH		$root
         break
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
-    elif(selection == 7):
-        print("Selected choice is 7 - WORK IN PROGRESS --Configuremake.")
-        print("\n")
-        break
+#    elif(selection == 7):
+#        print("Selected choice is 7 - WORK IN PROGRESS --Configuremake.")
+#        print("\n")
+#        break
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
-    elif(selection == 8):
+    elif(selection == 7):
         print("============================")
         print("Thank you for choosing this Jubail HPC Easybuild package service")
         print("============================")
         break
 
-    elif(selection > 8):
+    elif(selection > 7):
         print("The selected choice is out of range, please choose the right option.")
         print("\n")
 
