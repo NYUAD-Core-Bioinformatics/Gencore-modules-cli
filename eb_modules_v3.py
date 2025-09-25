@@ -432,6 +432,7 @@ prepend-path	CMAKE_PREFIX_PATH		$root
         print("module load all gencore/3")
         print("module load", name + "/" + version)
         print("+++++++++++++++++++++++++++")
+        poll_to_modules_server()
         break
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
